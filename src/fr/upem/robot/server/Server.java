@@ -1,11 +1,14 @@
 package fr.upem.robot.server;
 
-import org.omg.CORBA.ORB;
-import org.omg.PortableServer.POA;
-import org.omg.PortableServer.POAHelper;
-
 import fr.upem.robot.RobotPilotePOATie;
 import fr.upem.robot.servant.RobotPiloteImpl;
+import org.omg.CORBA.ORB;
+import org.omg.CosNaming.NameComponent;
+import org.omg.CosNaming.NamingContextExt;
+import org.omg.CosNaming.NamingContextExtHelper;
+import org.omg.CosNaming.NamingContextPackage.AlreadyBound;
+import org.omg.PortableServer.POA;
+import org.omg.PortableServer.POAHelper;
 
 public class Server {
 
@@ -20,9 +23,23 @@ public class Server {
 		byte[] servantIdRobotPilote = rootPOA
 				.activate_object(robotPilotePOATie);
 
-		org.omg.CORBA.Object ref = rootPOA.id_to_reference(servantIdRobotPilote);
-		String ior = orb.object_to_string(ref);
-		System.out.println(ior);
+		NamingContextExt context = NamingContextExtHelper.narrow(orb
+				.resolve_initial_references("NameService"));
+		try {
+			context.bind_new_context(context.to_name("RobotContext"));
+		} catch (AlreadyBound e) {
+			context.rebind_context(context.to_name("RobotContext"), context);
+		}
+
+		NameComponent[] nameRobotPilote = context
+				.to_name("RobotContext/RobotPilote");
+		try {
+			context.bind(nameRobotPilote,
+					rootPOA.id_to_reference(servantIdRobotPilote));
+		} catch (AlreadyBound e) {
+			context.rebind(nameRobotPilote,
+					rootPOA.id_to_reference(servantIdRobotPilote));
+		}
 
 		rootPOA.the_POAManager().activate();
 		orb.run();
