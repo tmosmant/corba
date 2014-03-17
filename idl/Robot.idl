@@ -1,0 +1,40 @@
+module fr {
+	module upem {
+		module robot {
+			
+			struct Position {
+				long posX;
+				long posY;
+			};
+
+			typedef sequence<any> SensorSet;
+
+			exception InvalidPosition { 
+				string message; 
+			};
+
+			exception AlreadyStarted { 
+				string message; 
+			};
+
+			exception NotStarted { 
+				string message; 
+			};
+
+			interface RobotPilote {
+				readonly attribute Position robotPosition;
+				void start() raises (AlreadyStarted);
+				void move( in Position pos ) raises (InvalidPosition);
+				void stop ( out Position pos ) raises (NotStarted);
+			};
+
+			interface RobotControl {
+				attribute Position maxPosition;
+				any getSensor ( in string sensor );
+				boolean setSensor  ( in string sensor, in any newSensor );
+				SensorSet getSensors();
+			};
+			
+		};
+	};
+};
