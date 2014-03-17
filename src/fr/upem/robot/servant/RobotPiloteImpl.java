@@ -33,6 +33,7 @@ public class RobotPiloteImpl implements RobotPiloteOperations {
         if (!isStarted) {
             throw new NotStarted("Not started !");
         }
+        isStarted = false;
         pos.value = position;
     }
 }
