@@ -46,6 +46,48 @@ _0_fr.upem.robot._tc_Position = omniORB.tcInternal.createTypeCode(_0_fr.upem.rob
 omniORB.registerType(Position._NP_RepositoryId, _0_fr.upem.robot._d_Position, _0_fr.upem.robot._tc_Position)
 del Position
 
+# struct SensorA
+_0_fr.upem.robot.SensorA = omniORB.newEmptyClass()
+class SensorA (omniORB.StructBase):
+    _NP_RepositoryId = "IDL:fr/upem/robot/SensorA:1.0"
+
+    def __init__(self, name):
+        self.name = name
+
+_0_fr.upem.robot.SensorA = SensorA
+_0_fr.upem.robot._d_SensorA  = (omniORB.tcInternal.tv_struct, SensorA, SensorA._NP_RepositoryId, "SensorA", "name", (omniORB.tcInternal.tv_string,0))
+_0_fr.upem.robot._tc_SensorA = omniORB.tcInternal.createTypeCode(_0_fr.upem.robot._d_SensorA)
+omniORB.registerType(SensorA._NP_RepositoryId, _0_fr.upem.robot._d_SensorA, _0_fr.upem.robot._tc_SensorA)
+del SensorA
+
+# struct SensorB
+_0_fr.upem.robot.SensorB = omniORB.newEmptyClass()
+class SensorB (omniORB.StructBase):
+    _NP_RepositoryId = "IDL:fr/upem/robot/SensorB:1.0"
+
+    def __init__(self, name):
+        self.name = name
+
+_0_fr.upem.robot.SensorB = SensorB
+_0_fr.upem.robot._d_SensorB  = (omniORB.tcInternal.tv_struct, SensorB, SensorB._NP_RepositoryId, "SensorB", "name", (omniORB.tcInternal.tv_string,0))
+_0_fr.upem.robot._tc_SensorB = omniORB.tcInternal.createTypeCode(_0_fr.upem.robot._d_SensorB)
+omniORB.registerType(SensorB._NP_RepositoryId, _0_fr.upem.robot._d_SensorB, _0_fr.upem.robot._tc_SensorB)
+del SensorB
+
+# struct SensorC
+_0_fr.upem.robot.SensorC = omniORB.newEmptyClass()
+class SensorC (omniORB.StructBase):
+    _NP_RepositoryId = "IDL:fr/upem/robot/SensorC:1.0"
+
+    def __init__(self, name):
+        self.name = name
+
+_0_fr.upem.robot.SensorC = SensorC
+_0_fr.upem.robot._d_SensorC  = (omniORB.tcInternal.tv_struct, SensorC, SensorC._NP_RepositoryId, "SensorC", "name", (omniORB.tcInternal.tv_string,0))
+_0_fr.upem.robot._tc_SensorC = omniORB.tcInternal.createTypeCode(_0_fr.upem.robot._d_SensorC)
+omniORB.registerType(SensorC._NP_RepositoryId, _0_fr.upem.robot._d_SensorC, _0_fr.upem.robot._tc_SensorC)
+del SensorC
+
 # typedef ... SensorSet
 class SensorSet:
     _NP_RepositoryId = "IDL:fr/upem/robot/SensorSet:1.0"
@@ -57,6 +99,21 @@ _0_fr.upem.robot._ad_SensorSet = (omniORB.tcInternal.tv_alias, SensorSet._NP_Rep
 _0_fr.upem.robot._tc_SensorSet = omniORB.tcInternal.createTypeCode(_0_fr.upem.robot._ad_SensorSet)
 omniORB.registerType(SensorSet._NP_RepositoryId, _0_fr.upem.robot._ad_SensorSet, _0_fr.upem.robot._tc_SensorSet)
 del SensorSet
+
+# exception Reject
+_0_fr.upem.robot.Reject = omniORB.newEmptyClass()
+class Reject (CORBA.UserException):
+    _NP_RepositoryId = "IDL:fr/upem/robot/Reject:1.0"
+
+    def __init__(self, message):
+        CORBA.UserException.__init__(self, message)
+        self.message = message
+
+_0_fr.upem.robot.Reject = Reject
+_0_fr.upem.robot._d_Reject  = (omniORB.tcInternal.tv_except, Reject, Reject._NP_RepositoryId, "Reject", "message", (omniORB.tcInternal.tv_string,0))
+_0_fr.upem.robot._tc_Reject = omniORB.tcInternal.createTypeCode(_0_fr.upem.robot._d_Reject)
+omniORB.registerType(Reject._NP_RepositoryId, _0_fr.upem.robot._d_Reject, _0_fr.upem.robot._tc_Reject)
+del Reject
 
 # exception InvalidPosition
 _0_fr.upem.robot.InvalidPosition = omniORB.newEmptyClass()
@@ -185,8 +242,8 @@ omniORB.registerType(RobotControl._NP_RepositoryId, _0_fr.upem.robot._d_RobotCon
 # RobotControl operations and attributes
 RobotControl._d__get_maxPosition = ((),(omniORB.typeMapping["IDL:fr/upem/robot/Position:1.0"],),None)
 RobotControl._d__set_maxPosition = ((omniORB.typeMapping["IDL:fr/upem/robot/Position:1.0"],),(),None)
-RobotControl._d_getSensor = (((omniORB.tcInternal.tv_string,0), ), (omniORB.tcInternal.tv_any, ), None)
-RobotControl._d_setSensor = (((omniORB.tcInternal.tv_string,0), omniORB.tcInternal.tv_any), (omniORB.tcInternal.tv_boolean, ), None)
+RobotControl._d_getSensor = (((omniORB.tcInternal.tv_string,0), ), (omniORB.tcInternal.tv_any, ), {_0_fr.upem.robot.Reject._NP_RepositoryId: _0_fr.upem.robot._d_Reject})
+RobotControl._d_setSensor = (((omniORB.tcInternal.tv_string,0), omniORB.tcInternal.tv_any), (omniORB.tcInternal.tv_boolean, ), {_0_fr.upem.robot.Reject._NP_RepositoryId: _0_fr.upem.robot._d_Reject})
 RobotControl._d_getSensors = ((), (omniORB.typeMapping["IDL:fr/upem/robot/SensorSet:1.0"], ), None)
 
 # RobotControl object reference
