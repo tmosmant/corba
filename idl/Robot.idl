@@ -7,7 +7,23 @@ module fr {
 				long posY;
 			};
 
-			typedef sequence<any> SensorSet;
+			struct SensorA {
+			    string name;
+			};
+
+			struct SensorB {
+                string name;
+            };
+
+            struct SensorC {
+                string name;
+            };
+
+			typedef sequence <any> SensorSet;
+
+            exception Reject {
+                string message;
+            };
 
 			exception InvalidPosition { 
 				string message; 
@@ -30,8 +46,8 @@ module fr {
 
 			interface RobotControl {
 				attribute Position maxPosition;
-				any getSensor ( in string sensor );
-				boolean setSensor  ( in string sensor, in any newSensor );
+				any getSensor ( in string sensor ) raises (Reject);
+				boolean setSensor  ( in string sensor, in any newSensor ) raises (Reject);
 				SensorSet getSensors();
 			};
 			
