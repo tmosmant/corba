@@ -15,6 +15,11 @@ import org.omg.PortableServer.POAHelper;
 public class Server {
 
     public static void main(String[] args) throws Exception {
+//        Properties properties = new Properties();
+//        properties
+//                .put("org.omg.PortableInterceptor.ORBInitializerClass.fr.upem.robot.server.interceptor.InterceptorServerInit",
+//                     "fr.upem.robot.server.interceptor.InterceptorServerInit");
+
         ORB orb = ORB.init(args, null);
         POA rootPOA = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
 

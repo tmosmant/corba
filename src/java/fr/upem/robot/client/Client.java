@@ -4,20 +4,27 @@ import fr.upem.robot.*;
 import org.omg.CORBA.Any;
 import org.omg.CORBA.ORB;
 import org.omg.CORBA.TypeCode;
+import org.omg.CosNaming.NameComponent;
+import org.omg.CosNaming.NamingContextExt;
+import org.omg.CosNaming.NamingContextExtHelper;
 
 public class Client {
 
     public static void main(String[] args) throws Exception {
+//        Properties properties = new Properties();
+//        properties
+//                .put("org.omg.PortableInterceptor.ORBInitializerClass.fr.upem.robot.client.interceptor.InterceptorClientInit",
+//                     "fr.upem.robot.client.interceptor.InterceptorClientInit");
+
         ORB orb = ORB.init(args, null);
 
-        String IORRobotPilote = args[0];
-        String IORRobotControl = args[1];
+        NamingContextExt namingContext = NamingContextExtHelper.narrow(orb.resolve_initial_references("NameService"));
 
-        org.omg.CORBA.Object refRobotPilote = orb.string_to_object(IORRobotPilote);
-        org.omg.CORBA.Object refRobotControle = orb.string_to_object(IORRobotControl);
+        NameComponent[] nameRobotPilote = namingContext.to_name("RobotContext/RobotPilote");
+        NameComponent[] nameRobotControl = namingContext.to_name("RobotContext/RobotControl");
 
-        RobotPilote robotPilote = RobotPiloteHelper.narrow(refRobotPilote);
-        RobotControl robotControl = RobotControlHelper.narrow(refRobotControle);
+        RobotPilote robotPilote = RobotPiloteHelper.narrow(namingContext.resolve(nameRobotPilote));
+        RobotControl robotControl = RobotControlHelper.narrow(namingContext.resolve(nameRobotControl));
 
         Any anySensor = orb.create_any();
         SensorA sensorA = new SensorA("sensor A1");
